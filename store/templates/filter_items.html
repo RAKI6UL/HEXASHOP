@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<section style="margin-top:120px;">
+  <div style="" class="container">
+    <h5 > {{p_count}} items found</h5>
+    <div class="row">
+      {% if products %} {% for product in products %}
+        <div class="col-lg-4 ">
+          <div class="card">
+              <img src="{{ product.image.url }}" class="card-img-top" alt="Product 1">
+              <div class="card-body">
+                  <h5 class="card-title"> {{product.product_name}}</h5>
+                  <p class="card-text">{{product.description}}</p>
+                  <p style="font-size:20px;" class="fs-1">Price: ৳ {{product.price}}</p>
+                  <p style="font-size:17px;" class="fs-1">Size: {{product.sizes}}</p>
+                  <a style="background-color: #4ac710;"  href="{% url 'add_cart' product_id=product.id %}" class="btn btn-primary">𝙰𝚍𝚍 𝚝𝚘 𝚌𝚊𝚛𝚝</a>
+                  <a style="background-color: #22806d;"  href="{% url 'product_detail' product_id=product.id %}" class="btn text-light ">𝙿𝚛𝚘𝚍𝚞𝚌𝚝 𝙳𝚎𝚝𝚊𝚒𝚕𝚜</a>
+              </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+        
+    <nav class="mt-4" aria-label="Page navigation sample">
+      {% if products.has_other_pages %}
+      <ul class="pagination">
+        {% if products.has_previous %}
+        <li class="page-item">
+          <a class="page-link"
+            href="?page={{products.previous_page_number}}&field1={{field1}}&field2={{field2}}&field3={{field3}}&field4={{field4}}">Previous</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link" href="#">𝙿𝚛𝚎𝚟𝚒𝚘𝚞𝚜</a>
+        </li>
+        {% endif %}
+        {% for i in products.paginator.page_range %}
+        {% if products.number == i %}
+        <li class="page-item active">
+          <a class="page-link" href="#">{{i}}</a>
+        </li>
+        {% else %}
+        <li class="page-item">
+          <a class="page-link"
+            href="?page={{i}}&field1={{field1}}&field2={{field2}}&field3={{field3}}&field4={{field4}}">{{i}}</a>
+        </li>
+        {% endif %} {% endfor %} {% if products.has_next %}
+        <li class="page-item">
+          <a class="page-link"
+            href="?page={{products.next_page_number}}&field1={{field1}}&field2={{field2}}&field3={{field3}}&field4={{field4}}">Next</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link" href="#">𝙽𝚎𝚡𝚝</a>
+        </li>
+        {% endif %}
+      </ul>
+      {% endif %}
+    </nav>
+  
+  
+  </div>
+  
+  {% elif products == None %} 
+  <div>
+   <h2>𝙽𝚘 𝚛𝚎𝚜𝚞𝚕𝚝 𝚏𝚘𝚞𝚗𝚍. 𝙿𝚕𝚎𝚊𝚜𝚎 𝚝𝚛𝚢 𝚊𝚐𝚊𝚒𝚗.</h2>
+  </div>
+  {% endif %}
+  
+</section>
+
+{% endblock %}

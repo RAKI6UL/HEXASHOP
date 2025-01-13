@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+
+    /* Custom CSS for registration form */
+    .form-group label {
+        font-weight: bold;
+        font-size: 0.8em; /* Adjust the font size */
+    }
+    
+    .form-group input {
+        width: 100%;
+        padding: 6px; /* Adjust the padding */
+        margin-bottom: 8px; /* Adjust the margin */
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 0.9em; /* Adjust the font size */
+    }
+
+    .btn-primary {
+        margin-top: 10px;
+    }
+
+    .move-right {
+        margin-left: 400px;
+    }
+
+    /* Adjust the top margin for the container */
+    .mt-custom {
+        margin-top: 420px; /* You can adjust this value */
+    }
+
+</style>
+
+<div class="container mt-5 mt-custom">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card"> 
+                <div class="card-body">
+                    <div class="card-header text-center" style="margin-top: 40px;">
+                        <h5>𝐒𝐈𝐍𝐆𝐔𝐏</h5>
+                    </div>
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ form.non_field_errors }}
+                    </div>
+                    {% endif %}
+                    <form method="POST" class="needs-validation" novalidate>
+                        {% csrf_token %}
+
+                        <!-- Username -->
+                        <div class="form-group">
+                            <label for="{{ form.username.id_for_label }}">Username:</label>
+                            {{ form.username }}
+                            {% if form.username.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.username.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- First Name -->
+                        <div class="form-group">
+                            <label for="{{ form.first_name.id_for_label }}">First Name:</label>
+                            {{ form.first_name }}
+                            {% if form.first_name.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.first_name.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Last Name -->
+                        <div class="form-group">
+                            <label for="{{ form.last_name.id_for_label }}">Last Name:</label>
+                            {{ form.last_name }}
+                            {% if form.last_name.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.last_name.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label for="{{ form.email.id_for_label }}">Email:</label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.email.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Password1 -->
+                        <div class="form-group">
+                            <label for="{{ form.password1.id_for_label }}">Password:</label>
+                            {{ form.password1 }}
+                            {% if form.password1.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.password1.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Password2 -->
+                        <div class="form-group">
+                            <label for="{{ form.password2.id_for_label }}">Confirm Password:</label>
+                            {{ form.password2 }}
+                            {% if form.password2.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.password2.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-primary move-right">𝐒𝐮𝐛𝐦𝐢𝐭</button>
+                        <p class="text-center" style="margin-bottom: 10px;">𝗔𝗹𝗿𝗲𝗮𝗱𝘆 𝗵𝗮𝘃𝗲 𝗮𝗻 𝗮𝗰𝗰𝗼𝘂𝗻𝘁?  <a href="{% url 'login'%}">Sign in</a></p>
+
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Add Bootstrap validation classes to form elements
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+{% endblock content %}

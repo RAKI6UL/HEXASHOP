@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container" style="margin-top: 110px;">
+    <section class="section-content padding-y bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                    {% if cart_items %}
+                    <div class="card">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart_items %}
+                                <tr>
+                                  <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="{{item.product.image.url}}" class="img-thumbnail" width="100" alt="{{ item.product.product_name }}" />
+                                        <div class="ml-2">
+                                            <a href="#" class="text-dark">{{ item.product.product_name }}</a>
+                                            <p class="text-muted small">Category: {{ item.product.category.category_name }}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group input-spinner">
+                                        <div class="input-group-prepend">
+                                            <form action="{% url 'remove_cart_item' item.product.id item.id %}">
+                                                {% csrf_token %}
+                                                <button class="btn btn-light" type="submit">
+                                                    <i class="fa fa-minus"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <input type="text" class="form-control" value="{{ item.quantity }}" />
+                                        <div class="input-group-append">
+                                            <form action="{% url 'add_cart' item.product.id %}" method="POST">
+                                                {% csrf_token %}
+                                                <button class="btn btn-light" type="submit">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="price-wrap">
+                                        <span class="price">৳{{ item.sub_total }}</span>
+                                        <small class="text-muted"> ৳{{ item.product.price }} each </small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="{% url 'remove_cart' item.product.id item.id %}" class="btn btn-danger btn-sm">Remove</a>
+                                </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-info">
+                        You have not added any items to your cart.
+                    </div>
+                    <a href="{% url 'store' %}" class="btn btn-info btn-block">Continue Shopping</a>
+                    {% endif %}
+                </div>
+                <div class="col-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <dl class="d-flex justify-content-between">
+                                <dt>𝚃𝚘𝚝𝚊𝚕 𝚙𝚛𝚒𝚌𝚎:</dt>
+                                <dd class="ml-auto">৳{{ total }}</dd>
+                            </dl>
+                            <dl class="d-flex justify-content-between">
+                                <dt>𝚃𝚊𝚡:</dt>
+                                <dd class="ml-auto">৳{{ tax }}</dd>
+                            </dl>
+                            <dl class="d-flex justify-content-between">
+                                <dt>𝚃𝚘𝚝𝚊𝚕:</dt>
+                                <dd class="ml-auto text-dark b">
+                                    <strong>৳{{ grand_total }}</strong>
+                                </dd>
+                            </dl>
+                            <hr />
+                            <p class="text-center mb-3">
+                            <h1 style="font-size: 20px; color: #4CAF50; text-align: center; font-weight: bold;  font-family: 'Times New Roman';margin-bottom: 20px; text-transform: uppercase;">
+                                    Payment Method
+                            </h1>
+                                    <p class="text-center mb-3">
+                                    <img src="/static/images/bkash.png" height="26" alt="bKash" title="bKash" />
+                                    <img src="/static/images/rocket.png" height="26" alt="Rocket" title="Rocket" />
+                                    <img src="/static/images/nexus.png" height="26" alt="NexusPay" title="NexusPay" />
+                                </p>
+                                
+                            </p>
+                            {% if cart_items %}
+                            <a href="" class="btn btn-primary btn-block">Checkout</a>
+                            <a href="{% url 'store' %}" class="btn btn-info btn-block">Continue Shopping</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

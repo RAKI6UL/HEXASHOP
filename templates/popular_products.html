@@ -1,0 +1,91 @@
+{% load static %}
+{% include 'base.html' %}
+
+{% block content %}
+<h4>We Are Hexashop</h4>
+<div style="padding-top:100px;" class="main-banner" id="top">
+      <h5 class="text-center mb-5">"𝙳𝚎𝚊𝚛 𝚂𝚒𝚛, 𝚔𝚒𝚗𝚍𝚕𝚢 𝚟𝚒𝚜𝚒𝚝 𝚝𝚑𝚎 𝚜𝚝𝚘𝚛𝚎 𝚙𝚊𝚐𝚎 𝚝𝚘 𝚏𝚒𝚕𝚝𝚎𝚛 𝚒𝚝𝚎𝚖𝚜 𝚊𝚗𝚍 𝚟𝚒𝚎𝚠 𝚘𝚛 𝚙𝚛𝚘𝚟𝚒𝚍𝚎 𝚛𝚎𝚟𝚒𝚎𝚠𝚜 𝚏𝚘𝚛 𝚎𝚊𝚌𝚑 𝚙𝚛𝚘𝚍𝚞𝚌𝚝 𝚒𝚗 𝚝𝚑𝚎 𝚍𝚎𝚝𝚊𝚒𝚕𝚜 𝚜𝚎𝚌𝚝𝚒𝚘𝚗."</h5>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="left-content" style="display: flex; justify-content: center; align-items: center;">
+                        <div class="thumb">
+                            <div style="left: 50%; top: 50%; transform: translate(-50%,-50%);" class="inner-content">
+                                <h4>𝖶𝖤𝖫𝖢𝖮𝖬𝖤 𝖳𝖮 𝖧𝖤𝖷𝖠𝖲𝖧𝖮𝖯</h4>
+                                <div class="main-border-button">
+                                    <a href="{% url 'featurenv' %}">𝙿𝚞𝚛𝚌𝚑𝚊𝚜𝚎 𝙽𝚘𝚠!</a>
+                                </div>
+                            </div>
+                            <img style="height: 400px; width: 80vw; margin-right: 0; margin-left: 0; object-fit: cover;" src="{% static 'images/left-banner-image.jpg' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mx-auto justify-content-center">
+                {% for item in products %}
+                <div style="max-width: 350px;" class="item m-4 col-lg-4">
+                    <div class="thumb">
+                        <img style="width:300px; height:350px;" src="{{ item.image.url }}" alt="">
+                    </div>
+                    <div class="down-content d-flex justify-content-between">
+                        <div>
+                            <h4 style="font-family: 'Times New Roman', Times, serif; font-size: 18px; font-weight: bold;" class="text-wrap">
+                                {{ item.product_name }}
+                            </h4>
+                            <span style="font-family: 'Times New Roman', Times, serif; font-size: 16px; color: #555;">
+                                ৳{{ item.price }}
+                            </span>
+                        </div>                        
+                        <div class="">
+                            <a href="{% url 'add_cart' product_id=item.id %}" style="width:150px; text-align:center;" class="button border-0 rounded text-light bg-success d-block m-1">𝙰𝚍𝚍 𝚝𝚘 𝚌𝚊𝚛𝚝</a>
+                            <a href="{% url 'product_detail' product_id=item.id %}" style="width:150px; text-align:center;" class="button border-0 rounded text-light bg-info d-block m-1">𝖣𝖾𝗍𝖺𝗂𝗅𝗌</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <nav class="mt-4 d-flex justify-content-center" aria-label="Page navigation sample">
+                {% if products.has_other_pages %}
+                <ul class="pagination justify-content-end mr-0">
+                    {% if products.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ products.previous_page_number }}">Previous</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">Previous</a>
+                    </li>
+                    {% endif %}
+                    {% for i in products.paginator.page_range %}
+                    {% if products.number == i %}
+                    <li class="page-item active">
+                        <a class="page-link" href="#">{{ i }}</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if products.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ products.next_page_number }}">Next</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </nav>
+            {% include 'includes/footer.html' %}
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,177 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<!-- ========================= SECTION PAGETOP ========================= -->
+<section style="margin-top:200px;" class=" ">
+  <div class="container mt-5">
+
+    <h2 class="title-page">𝚂𝚎𝚊𝚛𝚌𝚑 𝚁𝚎𝚜𝚞𝚕𝚝</h2>
+
+    <h2 class="title-page">𝙾𝚞𝚛 𝚂𝚝𝚘𝚛𝚎</h2>
+  </div>
+  <!-- container //  -->
+</section>
+<!-- ========================= SECTION INTRO END// ========================= -->
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+  <div class="container">
+    <div class="row">
+      <aside class="col-md-3">
+        <div class="card">
+          <article class="filter-group">
+            <header class="card-header">
+              <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
+                <i class="icon-control fa fa-chevron-down"></i>
+                <h6 class="title">𝙲𝚊𝚝𝚎𝚐𝚘𝚛𝚒𝚎𝚜</h6>
+              </a>
+            </header>
+            <div class="filter-content collapse show" id="collapse_1" style="">
+              <div class="card-body">
+                <ul class="list-menu">
+                  <li><a style="color:Red" href="{% url 'store' %}">𝙰𝚕𝚕 𝙿𝚛𝚘𝚍𝚞𝚌𝚝𝚜</a></li>
+                  {% for category in categories %}
+                  <li>
+                    <a href="{% url 'store_by_category' category_slug=category.slug %}">{{ category.category_name }}
+                    </a>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+              <!-- card-body.// -->
+            </div>
+          </article>
+          <div>
+            <form method="GET" action="{% url 'store' %}">          
+              <div class="d-flex align-items-center justify-content-between mr-3">
+                  <label class="text-nowrap mx-2" for="id_field1">𝙼𝚒𝚗 𝙿𝚛𝚒𝚌𝚎:</label>
+                  <input style="width:100px;" type="number" id="id_field1" name="field1">
+              </div>
+          
+              <div class="d-flex align-items-center justify-content-between mr-3">
+                  <label class="text-nowrap mx-2" for="id_field2">𝙼𝚊𝚡 𝙿𝚛𝚒𝚌𝚎:</label>
+                  <input style="width:100px;" type="number" id="id_field2" name="field2">
+              </div>          
+              <div class="d-flex align-items-center justify-content-between mr-3">
+                  <label class="text-nowrap mx-2" for="id_field3">𝚂𝚎𝚕𝚎𝚌𝚝 𝚂𝚒𝚣𝚎:</label>
+                  <select style="width:100px; margin-left:20px;" id="id_field3" name="field3"> <!-- Change 'name' attribute to 'field3' -->
+                    <option value="None">𝙰𝚕𝚕 𝚂𝚒𝚣𝚎𝚜</option> 
+                      <option value="S">Small(S)</option> 
+                      <option value="M">Medium(M)</option>
+                      <option value="L">Large(L)</option>
+                      <option value="XL">Extra Large(XL)</option>
+                      <option value="XXL">2X Extra Large(XXL)</option>
+                      <option value="XXXL">3X Extra Large(XXXL)</option>
+                      <option value="4">4(38)</option>
+                      <option value="5">5(39)</option>
+                      <option value="6">6(40)</option>
+                      <option value="7">7(41)</option>
+                      <option value="8">8(42)</option>
+
+                    </select>
+              </div>
+              <div class="d-flex align-items-center justify-content-between mr-3">
+                <label class="text-nowrap mx-2" for="id_field4">𝚂𝚎𝚕𝚎𝚌𝚝 𝙲𝚘𝚕𝚘𝚛:</label>
+                <select style="width:100px; margin-left:20px;"id="id_field4" name="field4"> <!-- Change 'name' attribute to 'field3' -->
+                  <option value="None">𝙰𝚕𝚕 𝙲𝚘𝚕𝚘𝚛</option> 
+                    <option value="Red">Red</option> 
+                    <option value="White">White</option>
+                    <option value="Blue">Blue</option>
+                    <option value="Green">Green</option>
+                    <option value="Yellow">Yellow</option>
+                    <option value="Black">Black</option>
+                    <option value="Violet">Violet</option>
+                    <option value="Navy blue">Navy blue</option>
+                    <option value="Light Pink">Light Pink</option>
+                    <option value="Gray">Gray</option>
+                    <option value="Maroon">Maroon</option>
+                    <option value="Orange">Orange</option>
+                    <option value="Levender">Levender</option>
+
+                </select>
+            </div>      
+              <button style="font-size:20px; color:Red" type="submit">𝚂𝚞𝚋𝚖𝚒𝚝</button>
+            </form>
+          </div>
+        </div>
+        <!-- card.// -->
+      </aside>
+      <main class="col-md-9">
+        <header class="border-bottom mb-4 pb-3">
+          <div class="form-inline">
+            <span class="mr-md-auto"><b>{{ p_count }}</b> items found
+            </span>
+          </div>
+        </header>
+        <!-- sect-heading -->
+
+        <div style=" " class="row mx-auto justify-content-center">
+          {% if products %} 
+          {% for product in products %}
+            <div style="max-width:300px; " class="col-lg-4  m-2">
+              <figure class="card card-product-grid">
+                <div class="img-wrap">
+                  <a href="#"><img style="max-width:300px; height:350px; object-fit:cover;" src="{{ product.image.url }}" /></a>
+                </div>
+                <!-- img-wrap.// -->
+                <figcaption class="info-wrap">
+                  <div class="fix-height">
+                    <a href="{% url 'product_detail' product_id=product.id %}" class="title">{{product.product_name}}</a>
+                    <div class="price-wrap mt-2">
+                      <span class="price">৳{{product.price}}</span>
+                    </div> <!-- price-wrap.// -->
+                  </div>
+                  <a href="{% url 'add_cart' product_id=product.id %}" class="btn btn-block btn-success">𝙰𝚍𝚍𝚎𝚍 𝚝𝚘 𝚌𝚊𝚛𝚝 </a>
+                  <a style="background-color: #22806d;" href="{% url 'product_detail' product_id=product.id %}" class="btn btn-block ">𝙿𝚛𝚘𝚍𝚞𝚌𝚝 𝙳𝚎𝚝𝚊𝚒𝚕𝚜 </a>
+                </figcaption>
+              </figure>
+            </div>
+          <!-- col.// -->
+          {% endfor %} 
+          {% else %}
+          <div>
+            <h2>𝙽𝚘 𝚛𝚎𝚜𝚞𝚕𝚝 𝚏𝚘𝚞𝚗𝚍. 𝙿𝚕𝚎𝚊𝚜𝚎 𝚝𝚛𝚢 𝚊𝚐𝚊𝚒𝚗.</h2>
+          </div>
+          {% endif %}
+        </div>
+        <!-- row end.// -->
+
+        <nav class="mt-4" aria-label="Page navigation sample">
+          {% if products.has_other_pages %}
+          <ul class="pagination">
+            {% if products.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{products.previous_page_number}}">𝙿𝚛𝚎𝚟𝚒𝚘𝚞𝚜</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+              <a class="page-link" href="#">𝙿𝚛𝚎𝚟𝚒𝚘𝚞𝚜</a>
+            </li>
+            {% endif %}
+            {% for i in products.paginator.page_range %}
+            {% if products.number == i %}
+            <li class="page-item active">
+              <a class="page-link" href="#">{{i}}</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{i}}">{{i}}</a>
+            </li>
+            {% endif %} {% endfor %} {% if products.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{products.next_page_number}}">𝙽𝚎𝚡𝚝</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+              <a class="page-link" href="#">𝙽𝚎𝚡𝚝</a>
+            </li>
+            {% endif %}
+          </ul>
+          {% endif %}
+        </nav>
+      </main>
+    </div>
+  </div>
+  <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Your existing navbar code -->
+<nav class="navbar" style="margin-top: 90px;">
+    <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 24px; color:Black; text-align: center; font-weight: bold; margin: 20px 0; letter-spacing: 2px;">
+        𝚆𝚎𝚕𝚌𝚘𝚖𝚎 𝚝𝚘 𝙷𝙴𝚇𝙰𝚂𝙷𝙾𝙿 𝚠𝚘𝚛𝚔𝚜𝚙𝚊𝚌𝚎
+    </h1>
+        <div class="ml-auto">
+        <div class="row">
+            <div class="col">
+                <a href="{% url 'upload_products' %}" class="btn btn-primary">𝚄𝚙𝚕𝚘𝚊𝚍 𝙿𝚛𝚘𝚍𝚞𝚌𝚝𝚜</a>
+            </div>
+            <div class="col">
+                <a href="{% url 'store' %}" class="btn btn-success">𝚂𝚊𝚕𝚎𝚜 𝙷𝚒𝚜𝚝𝚘𝚛𝚢</a>
+            </div>
+            <div class="col">
+                <button id="message-button" class="btn btn-info">𝙼𝚎𝚜𝚜𝚊𝚐𝚎𝚜</button>
+            </div>
+        </div>
+    </div>    
+</nav>
+
+{% block seller_nav %}
+
+
+{% endblock %}
+{% endblock %}

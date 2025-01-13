@@ -1,0 +1,97 @@
+{% extends 'seller_nav.html' %}
+{% load static %}
+
+{% block seller_nav %}
+<script>
+    function calculateDiscountedPrice() {
+        var price = parseFloat(document.getElementById("id_price").value);
+        var discount = parseFloat(document.getElementById("discount_price").value);
+        var discountedPrice = price - discount;
+        document.getElementById("discounted_price").value = discountedPrice;
+    }
+</script>
+
+<div class="container" style="margin-top: 190px;">
+    <h2 class="mb-4">𝐔𝐩𝐥𝐨𝐚𝐝 𝐚 𝐩𝐫𝐨𝐝𝐮𝐜𝐭𝐬</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="id_product_name">𝗣𝗿𝗼𝗱𝘂𝗰𝘁 𝗡𝗮𝗺𝗲:</label>
+            <input type="text" name="product_name" id="id_product_name" class="form-control">
+        </div>
+        
+        <div class="form-group">
+            <label for="id_slug">𝗦𝗹𝘂𝗴:</label>
+            <input type="text" name="slug" id="id_slug" class="form-control" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="id_price" style="display: block; margin-bottom: 5px;">𝗣𝗿𝗶𝗰𝗲:</label>
+            <input type="text" name="price" id="id_price" class="form-control" oninput="calculateDiscountedPrice()" style="width: 150px; display: inline-block;">
+        </div>
+        
+        <div class="form-group">
+            <label for="id_price" style="display: block; margin-bottom: 5px;">𝗗𝗶𝘀𝗰𝗼𝘂𝗻𝘁:</label>
+            <input type="text" name="discount" id="discount_price" class="form-control" oninput="calculateDiscountedPrice()" style="width: 150px; display: inline-block;">
+        </div>
+        
+        <div class="form-group">
+            <label for="discounted_price" style="display: block; margin-bottom: 5px;">𝗗𝗶𝘀𝗰𝗼𝘂𝗻𝘁𝗲𝗱 𝗣𝗿𝗶𝗰𝗲:</label>
+            <input type="text" name="discounted_price" id="discounted_price" class="form-control" readonly style="width: 150px; display: inline-block;">
+        </div>
+        
+        <div class="form-group">
+            <label for="id_image">𝗜𝗺𝗮𝗴𝗲:</label>
+            <input type="file" name="image" id="id_image" class="form-control-file">
+        </div>
+        
+        <div class="form-group">
+            <label for="id_stock" style="display: block; margin-bottom: 5px;">𝗦𝘁𝗼𝗰𝗸:</label>
+            <input type="number" name="stock" id="id_stock" class="form-control" style="width: 150px; display: inline-block;">
+        </div>
+        
+        <div class="form-group">
+            <label for="id_description">𝗗𝗲𝘀𝗰𝗿𝗶𝗽𝘁𝗶𝗼𝗻:</label>
+            <textarea name="description" id="id_description" class="form-control" rows="4"></textarea>
+        </div>
+        
+        <div class="form-check mb-3">
+            <input type="checkbox" name="is_available" id="id_is_available" class="form-check-input">
+            <label class="form-check-label" for="id_is_available">𝗜𝘀 𝗔𝘃𝗮𝗶𝗹𝗮𝗯𝗹𝗲</label>
+        </div>
+        
+        <div class="form-group">
+            <label for="id_category">𝗖𝗮𝘁𝗲𝗴𝗼𝗿𝘆:</label>
+            <select name="category" id="id_category" class="form-control" style="color: black; background-color: white;" required>
+                <option value="" disabled selected>Select a category</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.category_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="id_color">𝗖𝗼𝗹𝗼𝗿:</label>
+            <select name="color" id="id_color" class="form-control" required>
+                <option value="" disabled selected>Select a color</option>
+                {% for choice in form.color.field.choices %}
+                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="id_sizes">𝗦𝗶𝘇𝗲𝘀:</label>
+            <select name="sizes" id="id_sizes" class="form-control" required>
+                <option value="" disabled selected>Select sizes</option>
+                {% for choice in form.sizes.field.choices %}
+                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">ᴜᴘʟᴏᴀᴅ</button>
+    </form>
+</div>
+{% endblock %}

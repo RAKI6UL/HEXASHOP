@@ -1,0 +1,67 @@
+{% load static %}
+
+<header class="header-area">
+    <div class="container">
+        <div class="row fixed-top ">
+            <div class="col-12">
+                <nav style="background-color: white;" class="main-nav">
+                    <!-- ***** Logo Start ***** --> 
+                    <a href="{% url 'home'%}" class="logo"style="margin-left: 4cm;">
+                        <img src="{% static 'images/logo.png'%}">
+                    </a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul style="align-items: center;" class="nav">
+                        <li class="scroll-to-section"><a style="margin-rigth: 30cm;" href="{% url 'home' %}">𝙷𝚘𝚖𝚎</a></li>
+                        <li class="scroll-to-section"><a href="{% url 'store' %}">𝚂𝚝𝚘𝚛𝚎</a></li>
+                        
+                        <!-- Add Cart Button Here -->
+                        <li class="cart"><a href="{% url 'cart' %}">𝚈𝚘𝚞𝚛 𝙲𝚊𝚛𝚝</a></li>
+                        {% if request.user.is_authenticated %}
+                        <li class="scroll-to-section"><a href="{% url 'activities_home' %}">𝙰𝚌𝚝𝚒𝚟𝚒𝚝𝚒𝚎𝚜</a></li>
+                        {% endif %}
+                        {% if request.user.seller_profile.is_seller %}
+                        <li class="scroll-to-section"><a href="{% url 'work_space_home' %}">𝚆𝚘𝚛𝚔 𝚜𝚙𝚊𝚌𝚎</a></li>
+                        {% endif %}   
+                        {% if request.user.is_authenticated %}
+                        <div style=" display:flex; flex-direction:column; align-items:center" >
+                            {% if request.user.user_profile_picture %}
+                            <div>
+                                <a href="{% url 'profile_settings' %}">
+                                    <img src="{{ request.user.user_profile_picture.url }}" style="width: 30px; height: 30px;">
+                                </a>
+                            </div>
+                            {% else %}
+                            <div>
+                                <a>
+                                    <img src="{% static 'images/blank_profile.png'%}"style="width: 30px; height: 30px;">
+                                </a>
+                            </div>
+                            {% endif %}
+                            <div style="padding: 5px; " class="widget-header">
+                                <small class="title text-muted">
+                                    <a href="{% url 'profile_settings' %}"> {{request.user}}</a>
+                                </small>
+                            </div>
+                        </div> 
+                        {% else %}
+                        <div class="widget-header">
+                            <small class="title text-muted">𝚆𝚎𝚕𝚌𝚘𝚖𝚎 𝚐𝚞𝚎𝚜𝚝!</small>
+                            <div>
+                                <a href="{% url 'login' %}">𝖲𝗂𝗀𝗇 𝗂𝗇</a>
+                                <span class="dark-transp"> | </span>
+                                <a href="{% url 'register' %}">𝖱𝖾𝗀𝗂𝗌𝗍𝖾𝗋</a>
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                    </ul> 
+                    <a class='menu-trigger'>
+                        <span>𝙼𝚎𝚗𝚞</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
